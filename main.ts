@@ -1,4 +1,3 @@
-let boatArray: Array[] = []
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     turnBoat(currentBoat)
 })
@@ -6,13 +5,13 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     cursor.setFlag(SpriteFlag.ShowPhysics, false)
     moveBoatFlag = 0
 })
-function makeBoatInvisible2 (boatArray: Sprite[]) {
+function makeBoatvisible (boatArray: Sprite[]) {
     for (let value of boatArray) {
-        value.setFlag(SpriteFlag.Invisible, true)
+        value.setFlag(SpriteFlag.Invisible, false)
     }
 }
 function moveBoat (boatArray: any[]) {
-    makeBoatInvisible(boatArray)
+    makeBoatvisible(boatArray)
     if (grid.spriteRow(cursor) == 6 && boatRotateArray[currentBoat] == "up") {
         grid.move(cursor, 0, -1)
     }
@@ -25,14 +24,14 @@ function moveBoat (boatArray: any[]) {
         if (boatRotateArray[currentBoat] == "up") {
             grid.place(value, tiles.getTileLocation(grid.spriteCol(cursor), grid.spriteRow(cursor) + iterator))
         } else {
-            grid.place(value, tiles.getTileLocation(grid.spriteRow(cursor) + iterator, grid.spriteRow(cursor)))
+            grid.place(value, tiles.getTileLocation(grid.spriteCol(cursor) + iterator, grid.spriteRow(cursor)))
         }
         iterator += 1
     }
 }
 function makeBoatInvisible (boatArray: Sprite[]) {
     for (let value of boatArray) {
-        value.setFlag(SpriteFlag.Invisible, false)
+        value.setFlag(SpriteFlag.Invisible, true)
     }
 }
 function turnBoat (boatNum: number) {
@@ -134,7 +133,7 @@ let boatSpriteArray = [[sprites.create(img`
     . . . b b 5 5 5 5 5 5 b b . . . 
     . . . . . b b b b b b . . . . . 
     `, SpriteKind.Player)]]
-for (let value of boatArray) {
+for (let value of boatSpriteArray) {
     makeBoatInvisible(value)
 }
 moveBoatFlag = 1
