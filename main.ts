@@ -2,8 +2,12 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     turnBoat(currentBoat)
 })
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    cursor.setFlag(SpriteFlag.ShowPhysics, false)
-    moveBoatFlag = 0
+    if (currentBoat == 2) {
+        cursor.setFlag(SpriteFlag.ShowPhysics, false)
+        moveBoatFlag = 0
+    } else {
+        currentBoat += 1
+    }
 })
 function makeBoatvisible (boatArray: Sprite[]) {
     for (let value of boatArray) {
@@ -12,10 +16,10 @@ function makeBoatvisible (boatArray: Sprite[]) {
 }
 function moveBoat (boatArray: any[]) {
     makeBoatvisible(boatArray)
-    if (grid.spriteRow(cursor) == 6 && boatRotateArray[currentBoat] == "up") {
+    if (grid.spriteRow(cursor) == 0 - boatArray.length && boatRotateArray[currentBoat] == "up") {
         grid.move(cursor, 0, -1)
     }
-    if (grid.spriteCol(cursor) == 9 && boatRotateArray[currentBoat] == "sideways") {
+    if (grid.spriteCol(cursor) == 0 - boatArray.length && boatRotateArray[currentBoat] == "sideways") {
         grid.move(cursor, -1, 0)
     }
     cursor.setFlag(SpriteFlag.Invisible, true)
